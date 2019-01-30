@@ -25,15 +25,18 @@ require 'rails_helper'
 
 RSpec.describe CategoriesController, type: :controller do
 
-  # This should return the minimal set of attributes required to create a valid
-  # Category. As you add validations to Category, be sure to
-  # adjust the attributes here as well.
+
+  before :each do
+    Product.destroy_all
+    Category.destroy_all
+  end
+
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {name: 'Computers & Laptops'}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {name: nil}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -97,14 +100,14 @@ RSpec.describe CategoriesController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {name: 'Watchs'}
       }
 
       it "updates the requested category" do
         category = Category.create! valid_attributes
         put :update, params: {id: category.to_param, category: new_attributes}, session: valid_session
         category.reload
-        skip("Add assertions for updated state")
+        expect(response).to have_http_status(302)
       end
 
       it "redirects to the category" do

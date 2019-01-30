@@ -2,13 +2,23 @@
 
 <p>
   <strong>Name:</strong>
-  <%= @favoritelist.name %>
+  <%= current_user.favoritelist.name %>
 </p>
 
 <p>
   <strong>User:</strong>
-  <%= @favoritelist.user %>
+  <%= @favoritelist.user.name %>
 </p>
-
+<% @products.each do |product| %>
+  <li id="product-<%= product.id %>">
+    <span class="content">
+      Product: <%= product.name %>,
+      Price: <%= product.price %> EG,
+      Category: <%= product.category.name %>
+      <td><%= link_to 'Show', product %></td>
+    </span>
+  </li>
+  <% end %>
 <%= link_to 'Edit', edit_favoritelist_path(@favoritelist) %> |
-<%= link_to 'Back', favoritelists_path %>
+<%= link_to 'Back', favoritelists_path %> |
+<%= link_to 'Home', root_path %>

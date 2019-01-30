@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Products</h1>
+
+<form method="get" action="<%= products_path %>">
+  <select class="field" name="category_id">
+    <% @categories.each do |l| -%>
+      <%= content_tag(:option, l.name, value: l.id) %>
+    <% end %>
+  </select>
+  <button type="submit" value=category_id>Filter</button>
+</form>
+<form action="<%= products_path %>" method="get">
+  <button type="submit" value=category_id>Unfilter</button>
+</form> |
+<%= link_to 'My Favorite list', favoritelists_path %>
+<% @products.each do |product| %>
+  <li id="product-<%= product.id %>">
+    <span class="content">
+      Product: <%= product.name %>,
+      Price: <%= product.price %> EG,
+      Category: <%= product.category.name %>
+      <td><%= link_to 'Show', product %></td>
+    </span>
+  </li>
+  <% end %>
+<%= link_to 'New Product', new_product_path %>

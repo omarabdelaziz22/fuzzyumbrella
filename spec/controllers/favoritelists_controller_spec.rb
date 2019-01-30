@@ -28,12 +28,18 @@ RSpec.describe FavoritelistsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Favoritelist. As you add validations to Favoritelist, be sure to
   # adjust the attributes here as well.
+  before :each do
+    Product.destroy_all
+    Favoritelist.destroy_all
+    User.destroy_all
+    @user = User.create name: 'username', email: 'email@mail.com', password: '123456', password_confirmation: '123456'
+  end
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {name: 'Omar Fav'}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {name: nil}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -43,7 +49,7 @@ RSpec.describe FavoritelistsController, type: :controller do
 
   describe "GET #index" do
     it "returns a success response" do
-      Favoritelist.create! valid_attributes
+      @user.create_favoritelist! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
@@ -51,7 +57,7 @@ RSpec.describe FavoritelistsController, type: :controller do
 
   describe "GET #show" do
     it "returns a success response" do
-      favoritelist = Favoritelist.create! valid_attributes
+      favoritelist = @user.create_favoritelist! valid_attributes
       get :show, params: {id: favoritelist.to_param}, session: valid_session
       expect(response).to be_successful
     end
@@ -66,7 +72,7 @@ RSpec.describe FavoritelistsController, type: :controller do
 
   describe "GET #edit" do
     it "returns a success response" do
-      favoritelist = Favoritelist.create! valid_attributes
+      favoritelist = @user.create_favoritelist! valid_attributes
       get :edit, params: {id: favoritelist.to_param}, session: valid_session
       expect(response).to be_successful
     end
@@ -97,18 +103,18 @@ RSpec.describe FavoritelistsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {name: 'My Fav'}
       }
 
       it "updates the requested favoritelist" do
-        favoritelist = Favoritelist.create! valid_attributes
+        favoritelist = @user.create_favoritelist! valid_attributes
         put :update, params: {id: favoritelist.to_param, favoritelist: new_attributes}, session: valid_session
         favoritelist.reload
-        skip("Add assertions for updated state")
+        expect(response).to have_http_status(302)
       end
 
       it "redirects to the favoritelist" do
-        favoritelist = Favoritelist.create! valid_attributes
+        favoritelist = @user.create_favoritelist! valid_attributes
         put :update, params: {id: favoritelist.to_param, favoritelist: valid_attributes}, session: valid_session
         expect(response).to redirect_to(favoritelist)
       end
@@ -116,7 +122,7 @@ RSpec.describe FavoritelistsController, type: :controller do
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'edit' template)" do
-        favoritelist = Favoritelist.create! valid_attributes
+        favoritelist = @user.create_favoritelist! valid_attributes
         put :update, params: {id: favoritelist.to_param, favoritelist: invalid_attributes}, session: valid_session
         expect(response).to be_successful
       end
@@ -125,14 +131,14 @@ RSpec.describe FavoritelistsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested favoritelist" do
-      favoritelist = Favoritelist.create! valid_attributes
+      favoritelist = @user.create_favoritelist! valid_attributes
       expect {
         delete :destroy, params: {id: favoritelist.to_param}, session: valid_session
       }.to change(Favoritelist, :count).by(-1)
     end
 
     it "redirects to the favoritelists list" do
-      favoritelist = Favoritelist.create! valid_attributes
+      favoritelist = @user.create_favoritelist! valid_attributes
       delete :destroy, params: {id: favoritelist.to_param}, session: valid_session
       expect(response).to redirect_to(favoritelists_url)
     end

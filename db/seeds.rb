@@ -5,3 +5,17 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Product.destroy_all
+Category.destroy_all
+
+
+20.times do |n|
+    category_name = Faker::Commerce.unique.department
+    Category.create!(name: category_name)
+  end
+100.times do |n|
+    product_name = Faker::Commerce.unique.product_name
+    price = Faker::Commerce.price
+    category_id = rand(Category.count) +1
+    Product.create!(name: product_name, price: price, category_id: category_id)
+  end

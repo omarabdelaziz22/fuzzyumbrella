@@ -1,6 +1,5 @@
 class FavoritelistsController < ApplicationController
   before_action :set_favoritelist, only: [:show, :edit, :update, :destroy]
-
   # GET /favoritelists
   # GET /favoritelists.json
   def index
@@ -10,6 +9,8 @@ class FavoritelistsController < ApplicationController
   # GET /favoritelists/1
   # GET /favoritelists/1.json
   def show
+    @products = Product.all
+    @products = @favoritelist.products
   end
 
   # GET /favoritelists/new
@@ -24,7 +25,7 @@ class FavoritelistsController < ApplicationController
   # POST /favoritelists
   # POST /favoritelists.json
   def create
-    @favoritelist = Favoritelist.new(favoritelist_params)
+    @favoritelist = current_user.create_favoritelist!(favoritelist_params)
 
     respond_to do |format|
       if @favoritelist.save
@@ -61,6 +62,16 @@ class FavoritelistsController < ApplicationController
     end
   end
 
+  def favorite
+    @product = Product.find(params[:id])
+    type = params[:type]
+    if type == "favorite"
+      current_user.favoritelist.products << @product
+    else type == "unfavorite"
+      current_user.favoritelist.products.delete(@product)
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_favoritelist
@@ -69,6 +80,6 @@ class FavoritelistsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def favoritelist_params
-      params.require(:favoritelist).permit(:name, :user_id)
+      params.require(:favoritelist).permit(:name)
     end
 end

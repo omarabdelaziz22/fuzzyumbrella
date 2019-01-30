@@ -14,8 +14,8 @@
   <tbody>
     <% @favoritelists.each do |favoritelist| %>
       <tr>
-        <td><%= favoritelist.name %></td>
-        <td><%= favoritelist.user %></td>
+        <td><%= current_user.favoritelist.name %></td>
+        <td><%= favoritelist.user.name %></td>
         <td><%= link_to 'Show', favoritelist %></td>
         <td><%= link_to 'Edit', edit_favoritelist_path(favoritelist) %></td>
         <td><%= link_to 'Destroy', favoritelist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -26,4 +26,5 @@
 
 <br>
 
-<%= link_to 'New Favoritelist', new_favoritelist_path %>
+<%= link_to 'New Favoritelist', new_favoritelist_path %> |
+<%= link_to 'Home', root_path %>
