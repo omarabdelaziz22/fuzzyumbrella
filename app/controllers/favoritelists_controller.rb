@@ -1,72 +1,26 @@
 class FavoritelistsController < ApplicationController
-  before_action :set_favoritelist, only: [:show, :edit, :update, :destroy]
-  # GET /favoritelists
-  # GET /favoritelists.json
-  def index
-    @favoritelists = Favoritelist.all
-  end
+  before_action :set_favoritelist
+  before_action :authorize_user
 
-  # GET /favoritelists/1
-  # GET /favoritelists/1.json
   def show
-    @products = Product.all
     @products = @favoritelist.products
   end
 
-  # GET /favoritelists/new
-  def new
-    @favoritelist = Favoritelist.new
-  end
-
-  # GET /favoritelists/1/edit
-  def edit
-  end
-
-  # POST /favoritelists
-  # POST /favoritelists.json
-  def create
-    @favoritelist = current_user.create_favoritelist!(favoritelist_params)
-
-    respond_to do |format|
-      if @favoritelist.save
-        format.html { redirect_to @favoritelist, notice: 'Favoritelist was successfully created.' }
-        format.json { render :show, status: :created, location: @favoritelist }
-      else
-        format.html { render :new }
-        format.json { render json: @favoritelist.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /favoritelists/1
-  # PATCH/PUT /favoritelists/1.json
-  def update
-    respond_to do |format|
-      if @favoritelist.update(favoritelist_params)
-        format.html { redirect_to @favoritelist, notice: 'Favoritelist was successfully updated.' }
-        format.json { render :show, status: :ok, location: @favoritelist }
-      else
-        format.html { render :edit }
-        format.json { render json: @favoritelist.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /favoritelists/1
-  # DELETE /favoritelists/1.json
-  def destroy
-    @favoritelist.destroy
-    respond_to do |format|
-      format.html { redirect_to favoritelists_url, notice: 'Favoritelist was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
   def favorite
-    @product = Product.find(params[:id])
+    @product = Product.find(params[:product_id])
+    print "inside favorite method"
     type = params[:type]
+    print "Type:::::"
+    print type
+    print "          "
+    print "product::::::"
+    print @product
     if type == "favorite"
       current_user.favoritelist.products << @product
+      print "          >>>>>>>>   "
+      print current_user.favoritelist.products
+      print "          "
+      redirect_to product_path(@product)
     else type == "unfavorite"
       current_user.favoritelist.products.delete(@product)
     end
@@ -75,11 +29,12 @@ class FavoritelistsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_favoritelist
-      @favoritelist = Favoritelist.find(params[:id])
+      @favoritelist = current_user.favoritelist || current_user.create_favoritelist
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def favoritelist_params
-      params.require(:favoritelist).permit(:name)
+    def authorize_user
+      unless @favoritelist.user.id == current_user.id
+        redirect_to root_path
+      end
     end
 end

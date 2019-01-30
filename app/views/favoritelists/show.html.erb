@@ -1,10 +1,4 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= current_user.favoritelist.name %>
-</p>
-
 <p>
   <strong>User:</strong>
   <%= @favoritelist.user.name %>
@@ -13,12 +7,10 @@
   <li id="product-<%= product.id %>">
     <span class="content">
       Product: <%= product.name %>,
-      Price: <%= product.price %> EG,
+      Price: <%= product.price %> EGP,
       Category: <%= product.category.name %>
       <td><%= link_to 'Show', product %></td>
     </span>
   </li>
   <% end %>
-<%= link_to 'Edit', edit_favoritelist_path(@favoritelist) %> |
-<%= link_to 'Back', favoritelists_path %> |
 <%= link_to 'Home', root_path %>

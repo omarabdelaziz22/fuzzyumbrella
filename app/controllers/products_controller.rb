@@ -25,14 +25,13 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
+    @categories = Category.all
   end
 
   # POST /products
   # POST /products.json
   def create
-    @categories = Category.all
     @product = Product.new(product_params)
-
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }

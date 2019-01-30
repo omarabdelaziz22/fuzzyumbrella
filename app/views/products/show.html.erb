@@ -15,8 +15,8 @@
   <%= @product.category.name %>
 </p>
 <% if current_user %>
-  <%= link_to "favorite",   favorite_favoritelist_path(@product.id, type: "favorite"), method: :put %>
-  <%= link_to "unfavorite", favorite_favoritelist_path(@product.id, type: "unfavorite"), method: :put %>
+  <%= link_to "Favorite",   favorite_favoritelist_path(product_id: @product.id, type: "favorite"), method: :put %>
+  <%= link_to "Unfavorite", favorite_favoritelist_path(product_id: @product.id, type: "unfavorite"), method: :put %>
 <% end %>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
