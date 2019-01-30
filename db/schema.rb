@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2019_01_28_224030) do
     t.integer "product_id", null: false
     t.integer "favoritelist_id", null: false
     t.index ["favoritelist_id", "product_id"], name: "index_favoritelists_products_on_favoritelist_id_and_product_id"
-    t.index ["product_id", "favoritelist_id"], name: "index_favoritelists_products_on_product_id_and_favoritelist_id"
+    t.index ["product_id", "favoritelist_id"], name: "index_favoritelists_products_on_product_id_and_favoritelist_id", unique: true
   end
 
   create_table "products", force: :cascade do |t|

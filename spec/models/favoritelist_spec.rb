@@ -5,7 +5,7 @@ RSpec.describe Favoritelist, type: :model do
     Favoritelist.destroy_all
     Product.destroy_all
   end
-  subject { described_class.new ({name: "Mohamed's Fav", user: User.new }) }
+  subject { described_class.new ({user: User.new }) }
 
   it "has none to begin with" do
     expect(Favoritelist.count).to eq 0
@@ -38,7 +38,7 @@ RSpec.describe Favoritelist, type: :model do
     end
 
     it "is not valid without a name"  do
-      subject.name = nil
+      subject.user = nil
       expect(subject).to_not be_valid
     end
 

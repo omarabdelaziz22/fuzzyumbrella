@@ -10,17 +10,12 @@ class FavoritelistsController < ApplicationController
     @product = Product.find(params[:product_id])
     print "inside favorite method"
     type = params[:type]
-    print "Type:::::"
-    print type
-    print "          "
-    print "product::::::"
-    print @product
     if type == "favorite"
-      current_user.favoritelist.products << @product
-      print "          >>>>>>>>   "
-      print current_user.favoritelist.products
-      print "          "
-      redirect_to product_path(@product)
+      begin
+        current_user.favoritelist.products << @product
+      rescue ActiveRecord::RecordNotUnique => e
+        puts "Rescued: #{e.inspect}"
+      end
     else type == "unfavorite"
       current_user.favoritelist.products.delete(@product)
     end
