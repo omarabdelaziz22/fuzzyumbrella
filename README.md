@@ -4,9 +4,11 @@
 
 Task Requirements:
 - 1- Application which provides:
- >- Creating simple products and listing the products by categories.
- >- Allow us to adding products and categories.
- >- Allow us to adding products to the favorite list.
+ >- user can sign up/in
+ >- user can create simple products and listing the products by categories.
+ >- user can add products and categories.
+ >- user can add products to his favorite lis
+ >- user can filter products by its category.
 
 - 2- Type your DB migrations code.
 - 3- Adding default products and categories in your seed file.
@@ -26,3 +28,6 @@ Task Requirements:
 - Run `rails db:seed`
 - Run server `rails s`
 - Open your browser with url "http://localhost:3000"
+
+# Deployment:
+you can use the online version of this app [HERE](https://fuzzy-umberlla-challange.herokuapp.com/), it's deployed on Heroku.
