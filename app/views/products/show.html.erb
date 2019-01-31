@@ -1,13 +1,27 @@
 <p id="notice"><%= notice %></p>
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <%= link_to "Fuzzy Umberlla", root_path, id: "logo" %>
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "Home", root_path %></li>
+        <li><%= link_to "My Favorite list", user_favoritelist_path %></li>
+        <li><%= link_to "New Product", new_product_path %></li>
+        <li><%= link_to "Log out",  destroy_user_session_path, method: :delete %></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
 
 <p>
-  <strong>Name:</strong>
+  <strong>Product name:</strong>
   <%= @product.name %>
 </p>
 
 <p>
   <strong>Price:</strong>
-  <%= @product.price %>
+  <%= @product.price %>  EGP
 </p>
 
 <p>
@@ -20,5 +34,14 @@
 <% end %>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %> |
-<%= link_to 'Home', root_path %>
+<%= link_to 'Back', products_path %>
+<footer class="footer">
+  <small>
+    <a href="https://fustany.com/en">Fustany Official Webstie</a>
+  </small>
+  <nav>
+    <ul>
+      <li><a href="https://www.facebook.com/Fustany">Facebook Page</a></li>
+    </ul>
+  </nav>
+</footer>

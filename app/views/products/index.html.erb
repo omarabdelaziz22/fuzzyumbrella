@@ -1,28 +1,48 @@
 <p id="notice"><%= notice %></p>
-
-<h1>Fuzzy Umberlla</h1>
-
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <%= link_to "Fuzzy Umberlla", root_path, id: "logo" %>
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "Home", root_path %></li>
+        <li><%= link_to "My Favorite list", user_favoritelist_path %></li>
+        <li><%= link_to "New Product", new_product_path %></li>
+        <li><%= link_to "New Category", new_category_path %></li>
+        <li><%= link_to "Log out",  destroy_user_session_path, method: :delete %></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="myclass">
 <form method="get" action="<%= products_path %>">
-  <%= select_tag "category_id", options_from_collection_for_select(@categories, "id", "name") %> |
+    Categories |<%= select_tag "category_id", options_from_collection_for_select(@categories, "id", "name") %>
   <button type="submit" value=category_id>Filter</button>
 </form>
-
 <form method="get" action="<%= products_path %>">
   <button type="submit" value=category_id>Unfilter</button>
-<form>  |
-<%= link_to 'My Favorite list', user_favoritelist_path %> |
-<%= link_to 'New Product', new_product_path %>|
-<%= link_to 'Sign out', destroy_user_session_path, method: :delete  %>
-
-<ul>
-  <% @products.each do |product| %>
-    <li id="product-<%= product.id %>">
-      <span class="content">
-        Product: <%= product.name %>,
-        Price: <%= product.price %> EG,
-        Category: <%= product.category.name %>
-        <td><%= link_to 'Show', product %></td>
-      </span>
-    </li>
-  <% end %>
-</ul>
+<form>
+</div>
+<div class= "products">
+  <ul>
+    <% @products.each do |product| %>
+       <table class="content">
+         <tr id="product-<%= product.id %>">
+           <td style="width: 300px;"> -Product: <%= product.name %><td>
+           <td style="width: 120px;">-Price: <%= product.price %> EGP<td>
+           <td style="width: 300px;">-Category: <%= product.category.name %><td>
+           <td style="width: 50px;"><%= link_to 'Show', product %></td>
+         </tr>
+       </table>
+      <% end %>
+    </ul>
+</div>
+<footer class="footer">
+  <small>
+    <a href="https://fustany.com/en">Fustany Official Webstie</a>
+  </small>
+  <nav>
+    <ul>
+      <li><a href="https://www.facebook.com/Fustany">Facebook Page</a></li>
+    </ul>
+  </nav>
+</footer>

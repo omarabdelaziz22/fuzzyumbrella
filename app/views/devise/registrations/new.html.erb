@@ -1,3 +1,14 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <%= link_to "Fuzzy Umberlla", root_path, id: "logo" %>
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "Log In",  new_user_session_path %></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
 <h2>Sign up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -7,7 +18,7 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
-  
+
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
@@ -30,5 +41,13 @@
     <%= f.submit "Sign up" %>
   </div>
 <% end %>
-
-<%= render "devise/shared/links" %>
+<footer class="footer">
+  <small>
+    <a href="https://fustany.com/en">Fustany Official Webstie</a>
+  </small>
+  <nav>
+    <ul>
+      <li><a href="https://www.facebook.com/Fustany">Facebook Page</a></li>
+    </ul>
+  </nav>
+</footer>
