@@ -29,5 +29,10 @@ Task Requirements:
 - Run server `rails s`
 - Open your browser with url "http://localhost:3000"
 
+# Testing:
+- Open your terminal.
+- Change directory to project directory.
+- Run `rspec -f d`
+
 # Deployment:
 you can use the online version of this app [HERE](https://fuzzy-umberlla-challange.herokuapp.com/), it's deployed on Heroku.
